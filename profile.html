@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Pawmart – My Profile</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .profile-wrapper {
+            max-width: 700px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 8px 26px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .profile-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #283593;
+            margin-bottom: 10px;
+        }
+
+        .profile-field {
+            font-size: 16px;
+            margin: 12px 0;
+            color: #444;
+        }
+
+        .profile-label {
+            font-weight: bold;
+        }
+
+        .profile-btn {
+            background: #3d43e1;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 999px;
+            border: none;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .profile-btn:hover {
+            background: #2f34b8;
+        }
+
+        .error-msg {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body class="background">
+
+    <header class="banner">
+        <img class="logo" src="images/pawmart.png" alt="Pawmart Logo" />
+        <h1 class="banner-title">Welcome to Pawmart!</h1>
+    </header>
+
+    <div class="profile-wrapper">
+        <h2 class="profile-title">My Profile</h2>
+
+        <p id="error" class="error-msg"></p>
+
+        <p class="profile-field"><span class="profile-label">Email:</span> <span id="email"></span></p>
+        <p class="profile-field"><span class="profile-label">Role:</span> <span id="role"></span></p>
+        <p class="profile-field"><span class="profile-label">User ID:</span> <span id="userid"></span></p>
+
+        <button class="profile-btn" id="back-home">Back to Home</button>
+    </div>
+
+    <script>
+        const token = localStorage.getItem("token");
+        const errorEl = document.getElementById("error");
+
+        if (!token) {
+            errorEl.textContent = "You are not logged in.";
+        } else {
+            try {
+                const payload = JSON.parse(atob(token.split(".")[1]));
+
+                document.getElementById("email").textContent = payload.email || "Unknown";
+                document.getElementById("role").textContent = payload.role || "Unknown";
+                document.getElementById("userid").textContent = payload.id || "Unknown";
+            } catch (err) {
+                errorEl.textContent = "Unable to read profile information.";
+            }
+        }
+
+        document.getElementById("back-home").addEventListener("click", () => {
+            window.location.href = "Homepage.html";
+        });
+    </script>
+
+</body>
+</html>
