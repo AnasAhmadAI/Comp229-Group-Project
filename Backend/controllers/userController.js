@@ -17,10 +17,12 @@ export async function register(req, res) {
             securityAnswer,
             role: role || "customer"  // default role
         });
+        
 
-        res.json({ message: "User registered", user });
+        
     } catch (error) {
-        res.status(500).json({ error: "Server error" });
+        console.error(error);
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -79,3 +81,5 @@ export async function deleteUser(req, res) {
     await User.findByIdAndDelete(req.params.id);
     res.json({ message: "User deleted" });
 }
+
+

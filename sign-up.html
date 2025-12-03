@@ -16,18 +16,27 @@
 
 
 
-    <body class="background">
+
         
         <h2 class="intro">Please input the following information to create a new account</h2>
-    </body>
 
-        <div class="form-container">
+
+        <div class="form">
     <h2>Sign up</h2>
-    <form>
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
-        <input type="security" placeholder="Security Question">
-        <button type="submit">Sign Up</button>
+    <form action="sign-in.html" method="POST" id="sign-upform">
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <h3>Security Question</h3>
+        <select id="security" name="securityQuestion">
+        <option value="option1">What was the name of the street you grew up on?</option>
+        <option value="option2">What was your childhood pets name?</option>
+        <option value="option3">What elementary school did you attend?</option>
+        </select>
+        <input type="text" placeholder="Answer" name="securityAnswer" required>
+        <button type="submit" >Sign Up</button>
+
+
     </form>
+    <script src="signuproute.js"></script>
 </div>
 </html>
