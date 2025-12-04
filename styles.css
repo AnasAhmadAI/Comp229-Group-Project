@@ -26,7 +26,7 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 15px;
-  border-bottom: 5px solid #fbe49a;
+  /* border-bottom: 5px solid #fbe49a; */
   font-family: Verdana, sans-serif;
 }
 
@@ -150,6 +150,39 @@ html, body {
   font-weight: bold;
   margin-top: 10px;
   min-height: 18px; /* keeps layout from jumping when empty */
+}
+
+/* ===== Nav Layout ===== */
+nav {
+  background-color: #ffe39d;
+  align-content: center;
+  font-weight: bold;
+}
+
+nav div {
+  margin: auto;
+  text-align: center;
+}
+
+.nav-btn {
+  margin: 5px;
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border-width: 0;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #3d43e1;
+  text-decoration: none;
+}
+
+.nav-btn:hover {
+  color: #3d43e1;
+  background-color: #fff;
+  text-decoration: none;
 }
 
 /* ===== Homepage Layout ===== */
