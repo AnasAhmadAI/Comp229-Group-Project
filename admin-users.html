@@ -304,7 +304,7 @@
             tbody.innerHTML = "";
 
             try {
-                const res = await fetch("http://localhost:5000/api/users", {
+                const res = await fetch("https://pawmart-backend.onrender.com/api/users", {
                     headers: {
                         "Authorization": token
                     }
@@ -411,7 +411,7 @@
 
             try {
                 const res = await fetch(
-                    `http://localhost:3000/api/users/${userId}`,
+                    `https://pawmart-backend.onrender.com/api/users/${userId}`,
                     {
                         method: "DELETE",
                         headers: {
