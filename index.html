@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Pawmart – Home</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="background">
+    <!-- Banner -->
+    <header class="banner">
+        <img class="logo" src="images/pawmart.png" alt="Pawmart Logo" />
+        <h1 class="banner-title">Welcome to Pawmart!</h1>
+    </header>
+
+    <nav>
+        <div>
+            <a href="Homepage.html" id="nav-btn-homepage" class="nav-btn">Home</a>
+            <a href="profile.html" id="nav-btn-customer" class="nav-btn" style="display:none;">Profile</a>
+            <a href="admin-users.html" id="nav-btn-admin" class="nav-btn" style="display:none;">Admin Users</a>
+            <a href="products.html" id="nav-btn-products" class="nav-btn">Products</a>
+            <a href="sign-in.html" id="nav-btn-signin" class="nav-btn">Sign in</a>
+            <a href="sign-up.html" id="nav-btn-signup" class="nav-btn">Sign Up</a>
+            <button id="nav-btn-logout" class="nav-btn" style="display:none;">Log Out</button>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="home-wrapper">
+
+        <!-- Intro section -->
+        <section class="home-hero">
+            <h2 class="home-title">Your One-Stop Hub for Pet Lovers</h2>
+            <p class="home-subtitle">
+                Manage your account, keep your pet's info safe, and explore all that Pawmart has to offer.
+            </p>
+
+            <div class="home-actions">
+                <!-- buttons when logged OUT -->
+                <a href="sign-in.html" id="btn-signin" class="home-btn primary">Go to Sign In</a>
+                <a href="sign-up.html" id="btn-signup" class="home-btn secondary">Create an Account</a>
+
+                <!-- buttons when logged IN -->
+                <a href="#" id="btn-admin" class="home-btn primary" style="display:none;">
+                    Admin – Manage Users
+                </a>
+                <!-- FIXED: link goes to profile.html -->
+                <a href="profile.html" id="btn-customer" class="home-btn secondary" style="display:none;">
+                    View My Profile
+                </a>
+                <button id="btn-logout" class="home-btn secondary" style="display:none;">
+                    Log Out
+                </button>
+            </div>
+
+            <p id="home-status" class="home-status"></p>
+        </section>
+
+        <!-- Features section -->
+        <section class="home-features">
+            <div class="feature-card">
+                <h3>Secure Login</h3>
+                <p>Your account is protected with encrypted passwords and secure tokens.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Easy Access</h3>
+                <p>Sign in from anywhere to manage your profile and your pet's information.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Fast Recovery</h3>
+                <p>Forgot your password? Use your security answer to reset it in seconds.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Simple script to show login status + role -->
+    <script>
+        const statusEl = document.getElementById("home-status");
+        const btnSignin = document.getElementById("btn-signin");
+        const btnSignup = document.getElementById("btn-signup");
+        const btnAdmin = document.getElementById("btn-admin");
+        const btnCustomer = document.getElementById("btn-customer");
+        const btnLogout = document.getElementById("btn-logout");
+
+        const navBtnHomepage = document.getElementById("nav-btn-homepage");
+        const navBtnCustomer = document.getElementById("nav-btn-customer");
+        const navBtnProducts = document.getElementById("nav-btn-products");
+        const navBtnSignin = document.getElementById("nav-btn-signin");
+        const navBtnSignup = document.getElementById("nav-button-signup");
+        const navBtnAdmin = document.getElementById("nav-btn-admin");
+        const navBtnLogout = document.getElementById("nav-btn-logout")
+
+        const token = localStorage.getItem("token");
+
+        function showLoggedOut() {
+            if (statusEl) {
+                statusEl.textContent = "You are not logged in yet. Sign in or create an account to continue.";
+                statusEl.style.color = "#3d43e1";
+            }
+            if (btnSignin) btnSignin.style.display = "inline-block";
+            if (btnSignup) btnSignup.style.display = "inline-block";
+
+            if (btnAdmin) btnAdmin.style.display = "none";
+            if (btnCustomer) btnCustomer.style.display = "none";
+            if (btnLogout) btnLogout.style.display = "none";
+            
+            if (navBtnSignin) navBtnSignin.style.display = "inline-block"
+            if (navBtnSignup) navBtnSignup.style.display = "inline-block"
+
+            if (navBtnAdmin) navBtnAdmin.style.display = "none";
+            if (navBtnCustomer) navBtnCustomer.style.display = "none";
+            if (navBtnLogout) navBtnLogout.style.display = "none";
+
+        }
+
+        function showLoggedIn(roleText) {
+            if (statusEl) {
+                statusEl.textContent = `You are logged in as ${roleText}. Enjoy exploring Pawmart!`;
+                statusEl.style.color = "green";
+            }
+            if (btnSignin) btnSignin.style.display = "none";
+            if (btnSignup) btnSignup.style.display = "none";
+
+            if (roleText === "admin") {
+                if (btnAdmin) btnAdmin.style.display = "inline-block";
+                if (btnCustomer) btnCustomer.style.display = "none";
+
+                if (navBtnAdmin) navBtnAdmin.style.display = "inline-block";
+                if (navBtnCustomer) navBtnCustomer.style.display = "none";
+            } else {
+                if (btnAdmin) btnAdmin.style.display = "none";
+                if (btnCustomer) btnCustomer.style.display = "inline-block";
+
+                if (navBtnAdmin) navBtnAdmin.style.display = "none";
+                if (navBtnCustomer) navBtnCustomer.style.display = "inline-block";
+            }
+
+            if (btnLogout) btnLogout.style.display = "inline-block";
+            if (navBtnLogout) navBtnLogout.style.display = "inline-block";
+        }
+
+        if (!token) {
+            showLoggedOut();
+        } else {
+            try {
+                // decode JWT payload to read role
+                const parts = token.split(".");
+                const payload = JSON.parse(atob(parts[1]));
+                const role = payload.role || "customer";
+
+                showLoggedIn(role);
+            } catch (e) {
+                console.error("Problem decoding token", e);
+                localStorage.removeItem("token");
+                showLoggedOut();
+            }
+        }
+
+        // Admin button -> go to admin users page
+        if (btnAdmin) {
+            btnAdmin.addEventListener("click", (e) => {
+                e.preventDefault();
+                window.location.href = "admin-users.html";
+            });
+        }
+
+        // Logout button
+        if (btnLogout || navBtnLogout) {
+            btnLogout.addEventListener("click", () => {
+                localStorage.removeItem("token");
+                showLoggedOut();
+            });
+        }
+    </script>
+</body>
+</html>
