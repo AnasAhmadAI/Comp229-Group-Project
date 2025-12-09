@@ -14,6 +14,7 @@
         <h1 class="banner-title">Welcome to Pawmart!</h1>
     </header>
 
+    <!-- Navigation -->
     <nav>
         <div>
             <a href="Homepage.html" id="nav-btn-homepage" class="nav-btn">Home</a>
@@ -26,27 +27,55 @@
         </div>
     </nav>
 
-
-        
     <h2 class="intro">Please input the following information to create a new account</h2>
-
 
     <div class="form">
         <h2>Sign up</h2>
-        <form action="sign-in.html" method="POST" id="sign-upform">
-            <input type="email" id="email" name="email" placeholder="Email" required>
-            <input type="password" id="password" name="password" placeholder="Password" required>
+
+        <!-- IMPORTANT: no action/method – JS handles the submit -->
+        <form id="sign-upform">
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email"
+                required
+            />
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                required
+            />
+
             <h3>Security Question</h3>
             <select id="security" name="securityQuestion">
-            <option value="option1">What was the name of the street you grew up on?</option>
-            <option value="option2">What was your childhood pets name?</option>
-            <option value="option3">What elementary school did you attend?</option>
+                <option value="option1">What was the name of the street you grew up on?</option>
+                <option value="option2">What was your childhood pets name?</option>
+                <option value="option3">What elementary school did you attend?</option>
             </select>
-            <input type="text" placeholder="Answer" name="securityAnswer" required>
-            <button type="submit" >Sign Up</button>
 
+            <input
+                type="text"
+                id="securityAnswer"
+                name="securityAnswer"
+                placeholder="Answer"
+                required
+            />
 
+            <button type="submit">Sign Up</button>
+
+            <!-- Area to show signup errors -->
+            <p id="signup-error" style="color:red; display:none; margin-top:10px;"></p>
+            <!-- Area to show success before redirect (optional) -->
+            <p id="signup-success" style="color:green; display:none; margin-top:10px;"></p>
         </form>
+
+        <!-- Signup logic -->
         <script src="signuproute.js"></script>
     </div>
+
+</body>
 </html>
