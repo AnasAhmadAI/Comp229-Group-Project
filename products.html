@@ -14,6 +14,7 @@
         <h1 class="banner-title">Welcome to Pawmart!</h1>
     </header>
 
+    <!-- Navigation -->
     <nav>
         <div>
             <a href="Homepage.html" id="nav-btn-homepage" class="nav-btn">Home</a>
@@ -25,5 +26,183 @@
             <button id="nav-btn-logout" class="nav-btn" style="display:none;">Log Out</button>
         </div>
     </nav>
-    
+
+    <main class="products-page">
+
+        <!-- Hero / Intro -->
+        <section class="products-hero">
+            <h2>Your One-Stop Shop for Happy Pets</h2>
+            <p>
+                Discover curated essentials for dogs, cats, and small animals – from everyday must-haves 
+                to smart gadgets that make life easier for you and your pet.
+            </p>
+            <div class="products-hero-tags">
+                <span class="pill">Free treats on first order</span>
+                <span class="pill">Vet-approved picks</span>
+                <span class="pill">Hand-picked by Pawmart</span>
+            </div>
+        </section>
+
+        <!-- Shop by Pet Type -->
+        <section class="shop-by-pet">
+            <h3>Shop by pet</h3>
+            <div class="pet-type-row">
+                <div class="pet-type-card">
+                    <h4>Dogs</h4>
+                    <p>Harnesses, smart feeders, comfy beds, and training treats.</p>
+                </div>
+                <div class="pet-type-card">
+                    <h4>Cats</h4>
+                    <p>Climbing trees, calming caves, and interactive toys.</p>
+                </div>
+                <div class="pet-type-card">
+                    <h4>Small Pets</h4>
+                    <p>Soft bedding, healthy snacks, and enrichment tunnels.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Filters (purely visual for now) -->
+        <section class="product-filters">
+            <button class="filter-chip filter-chip--active">All</button>
+            <button class="filter-chip">Comfort & Beds</button>
+            <button class="filter-chip">Food & Treats</button>
+            <button class="filter-chip">Toys & Enrichment</button>
+            <button class="filter-chip">Tech & Smart Gear</button>
+            <button class="filter-chip">Health & Wellness</button>
+        </section>
+
+        <!-- Product Grid -->
+        <section class="product-grid-section">
+            <h3>Featured Pawmart Picks</h3>
+
+            <div class="product-grid">
+
+                <!-- Product 1 -->
+                <article class="product-card">
+                    <div class="product-badge">Best Seller</div>
+                    <div class="product-image-placeholder">
+                        Pet Cloud Bed
+                    </div>
+                    <h4>Ultra-Plush “Cloud” Bed</h4>
+                    <p class="product-desc">
+                        Raised-edge, orthopedic bed that supports joints and helps anxious pets feel secure.
+                    </p>
+                    <p class="product-meta">
+                        Sizes: S – XL · For dogs & cats
+                    </p>
+                    <div class="product-footer">
+                        <span class="product-price">$79.99</span>
+                        <button class="btn-primary">Add to Wishlist</button>
+                    </div>
+                </article>
+
+                <!-- Product 2 -->
+                <article class="product-card">
+                    <div class="product-badge product-badge--green">New</div>
+                    <div class="product-image-placeholder">
+                        Smart Bowl
+                    </div>
+                    <h4>Smart Portion-Control Feeder</h4>
+                    <p class="product-desc">
+                        Wi-Fi enabled bowl that measures portions and tracks feeding times in your Pawmart profile.
+                    </p>
+                    <p class="product-meta">
+                        Works with dogs & cats · App-connected
+                    </p>
+                    <div class="product-footer">
+                        <span class="product-price">$119.00</span>
+                        <button class="btn-primary">View Details</button>
+                    </div>
+                </article>
+
+                <!-- Product 3 -->
+                <article class="product-card">
+                    <div class="product-image-placeholder">
+                        Calm Treats
+                    </div>
+                    <h4>Calming Chews with Chamomile</h4>
+                    <p class="product-desc">
+                        Gentle chews designed to support relaxation during travel, vet visits, and storms.
+                    </p>
+                    <p class="product-meta">
+                        Grain-free · Vet-reviewed formula
+                    </p>
+                    <div class="product-footer">
+                        <span class="product-price">$24.50</span>
+                        <button class="btn-primary">Add to Cart</button>
+                    </div>
+                </article>
+
+                <!-- Product 4 -->
+                <article class="product-card">
+                    <div class="product-badge product-badge--purple">Staff Pick</div>
+                    <div class="product-image-placeholder">
+                        Cat Tower
+                    </div>
+                    <h4>Skyline Cat Tower</h4>
+                    <p class="product-desc">
+                        Modern scratching and climbing tower with cozy hideouts and a hammock lounge.
+                    </p>
+                    <p class="product-meta">
+                        For indoor cats · Easy assembly
+                    </p>
+                    <div class="product-footer">
+                        <span class="product-price">$149.99</span>
+                        <button class="btn-primary">Add to Wishlist</button>
+                    </div>
+                </article>
+
+                <!-- Product 5 -->
+                <article class="product-card">
+                    <div class="product-image-placeholder">
+                        Enrichment Box
+                    </div>
+                    <h4>Monthly Enrichment Box</h4>
+                    <p class="product-desc">
+                        A themed box of toys, puzzles, and treats tailored to your pet’s profile every month.
+                    </p>
+                    <p class="product-meta">
+                        Subscription · Cancel anytime
+                    </p>
+                    <div class="product-footer">
+                        <span class="product-price">$39.00 / month</span>
+                        <button class="btn-primary">Start Plan</button>
+                    </div>
+                </article>
+
+                <!-- Product 6 -->
+                <article class="product-card">
+                    <div class="product-image-placeholder">
+                        Wellness Kit
+                    </div>
+                    <h4>Home Wellness Starter Kit</h4>
+                    <p class="product-desc">
+                        Includes nail trimmer, gentle shampoo, ear wipes, and a digital temperature guide.
+                    </p>
+                    <p class="product-meta">
+                        Ideal for new pet parents
+                    </p>
+                    <div class="product-footer">
+                        <span class="product-price">$42.75</span>
+                        <button class="btn-primary">View Details</button>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Highlight Strip -->
+        <section class="products-highlight">
+            <h3>Why shop with Pawmart?</h3>
+            <ul>
+                <li>Products chosen with input from vets and experienced pet parents.</li>
+                <li>Track favourites and re-order easily from your Pawmart profile.</li>
+                <li>Support shelters: a portion of featured item sales goes to partner rescues.</li>
+            </ul>
+        </section>
+
+    </main>
+
 </body>
+</html>
