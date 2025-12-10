@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Pawmart – About</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .about-wrapper {
+            max-width: 900px;
+            margin: 40px auto 60px auto;
+            background: #ffffff;
+            padding: 30px 35px;
+            border-radius: 18px;
+            box-shadow: 0 8px 26px rgba(0,0,0,0.08);
+        }
+
+        .about-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #283593;
+            margin-bottom: 10px;
+        }
+
+        .about-subtitle {
+            font-size: 15px;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        .about-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .about-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 10px;
+        }
+
+        .about-list {
+            margin-left: 18px;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .about-list li {
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+
+<body class="background">
+    <!-- Banner -->
+    <header class="banner">
+        <img class="logo" src="images/pawmart.png" alt="Pawmart Logo" />
+        <h1 class="banner-title">Welcome to Pawmart!</h1>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div>
+            <a href="Homepage.html" id="nav-btn-homepage" class="nav-btn">Home</a>
+            <a href="profile.html" id="nav-btn-customer" class="nav-btn" style="display:none;">Profile</a>
+            <a href="admin-users.html" id="nav-btn-admin" class="nav-btn" style="display:none;">Admin Users</a>
+            <a href="products.html" id="nav-btn-products" class="nav-btn">Products</a>
+            <a href="about.html" class="nav-btn">About</a>
+            <a href="contact.html" class="nav-btn">Contact</a>
+            <a href="cart.html" class="nav-btn">Cart</a>
+            <a href="sign-in.html" id="nav-btn-signin" class="nav-btn">Sign in</a>
+            <a href="sign-up.html" id="nav-btn-signup" class="nav-btn">Sign Up</a>
+            <button id="nav-btn-logout" class="nav-btn" style="display:none;">Log Out</button>
+        </div>
+    </nav>
+
+    <main class="about-wrapper">
+        <h2 class="about-title">About Pawmart</h2>
+        <p class="about-subtitle">
+            Pawmart is a demo web application designed to showcase user authentication,
+            simple admin tools, and a product browsing experience for pet lovers.
+        </p>
+
+        <h3 class="about-section-title">What is Pawmart?</h3>
+        <p class="about-text">
+            Pawmart is built as a course project for COMP229 – Web Application Development.
+            The application simulates an online hub where pet owners can sign up, log in,
+            view curated products, and manage their basic profile.
+        </p>
+
+        <h3 class="about-section-title">Key Features</h3>
+        <ul class="about-list">
+            <li>Secure user registration and login with JWT-based authentication.</li>
+            <li>Role-based access: admin users can view and manage registered accounts.</li>
+            <li>Profile page showing user information stored in the system.</li>
+            <li>Products page with curated items for pets, organized for easy browsing.</li>
+        </ul>
+
+        <h3 class="about-section-title">Technology Stack</h3>
+        <p class="about-text">
+            Pawmart uses a Node.js and Express backend with MongoDB for data storage.
+            The frontend is built with HTML, CSS, and vanilla JavaScript, focusing on
+            clean structure and clear separation between views and API calls.
+        </p>
+
+        <h3 class="about-section-title">Project Purpose</h3>
+        <p class="about-text">
+            The main goal of this project is to practice building a full-stack web
+            application using an MVC structure, RESTful APIs, authentication and
+            authorization, and a basic external design suitable for future enhancements.
+        </p>
+    </main>
+
+    <!-- Global nav + logout logic -->
+    <script src="auth.js"></script>
+</body>
+</html>

@@ -25,17 +25,43 @@
         </div>
     </nav>
 
-    <body class="background">
-        
-        <h2 class="intro">Forgot Password? No problem! Please input the email associated with your account and security question to continue</h2>
-    </body>
+    <h2 class="intro">
+        Forgot your password? No problem! Please enter your email, security answer, and new password.
+    </h2>
 
-        <div class="form">
-        <h2>Change Password</h2>
-        <form>
-        <input type="email" placeholder="Email">
-        <input type="security" placeholder="Security Question">
-        <button type="submit">Change Password</button>
-    </form>
-</div>
+    <div class="form">
+        <h2>Reset Password</h2>
+        <form id="reset-form">
+            <input
+                type="email"
+                id="reset-email"
+                placeholder="Email"
+                required
+            />
+
+            <input
+                type="text"
+                id="reset-security-answer"
+                placeholder="Security Answer"
+                required
+            />
+
+            <input
+                type="password"
+                id="reset-new-password"
+                placeholder="New Password"
+                required
+            />
+
+            <button type="submit">Change Password</button>
+
+            <p id="reset-error" style="color:red; display:none; margin-top:10px;"></p>
+            <p id="reset-success" style="color:green; display:none; margin-top:10px;"></p>
+        </form>
+    </div>
+
+    <!-- Reset logic + nav logic -->
+    <script src="forgotpass.js"></script>
+    <script src="auth.js"></script>
+</body>
 </html>

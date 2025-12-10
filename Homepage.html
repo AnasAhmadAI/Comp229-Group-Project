@@ -41,10 +41,9 @@
                 <a href="sign-up.html" id="btn-signup" class="home-btn secondary">Create an Account</a>
 
                 <!-- buttons when logged IN -->
-                <a href="#" id="btn-admin" class="home-btn primary" style="display:none;">
+                <a href="admin-users.html" id="btn-admin" class="home-btn primary" style="display:none;">
                     Admin – Manage Users
                 </a>
-                <!-- FIXED: link goes to profile.html -->
                 <a href="profile.html" id="btn-customer" class="home-btn secondary" style="display:none;">
                     View My Profile
                 </a>
@@ -73,7 +72,7 @@
         </section>
     </main>
 
-    <!-- Simple script to show login status + role -->
+    <!-- Simple script to show login status + role for HOME HERO ONLY -->
     <script>
         const statusEl = document.getElementById("home-status");
         const btnSignin = document.getElementById("btn-signin");
@@ -82,17 +81,9 @@
         const btnCustomer = document.getElementById("btn-customer");
         const btnLogout = document.getElementById("btn-logout");
 
-        const navBtnHomepage = document.getElementById("nav-btn-homepage");
-        const navBtnCustomer = document.getElementById("nav-btn-customer");
-        const navBtnProducts = document.getElementById("nav-btn-products");
-        const navBtnSignin = document.getElementById("nav-btn-signin");
-        const navBtnSignup = document.getElementById("nav-button-signup");
-        const navBtnAdmin = document.getElementById("nav-btn-admin");
-        const navBtnLogout = document.getElementById("nav-btn-logout")
-
         const token = localStorage.getItem("token");
 
-        function showLoggedOut() {
+        function showLoggedOutHero() {
             if (statusEl) {
                 statusEl.textContent = "You are not logged in yet. Sign in or create an account to continue.";
                 statusEl.style.color = "#3d43e1";
@@ -103,17 +94,9 @@
             if (btnAdmin) btnAdmin.style.display = "none";
             if (btnCustomer) btnCustomer.style.display = "none";
             if (btnLogout) btnLogout.style.display = "none";
-            
-            if (navBtnSignin) navBtnSignin.style.display = "inline-block"
-            if (navBtnSignup) navBtnSignup.style.display = "inline-block"
-
-            if (navBtnAdmin) navBtnAdmin.style.display = "none";
-            if (navBtnCustomer) navBtnCustomer.style.display = "none";
-            if (navBtnLogout) navBtnLogout.style.display = "none";
-
         }
 
-        function showLoggedIn(roleText) {
+        function showLoggedInHero(roleText) {
             if (statusEl) {
                 statusEl.textContent = `You are logged in as ${roleText}. Enjoy exploring Pawmart!`;
                 statusEl.style.color = "green";
@@ -124,39 +107,32 @@
             if (roleText === "admin") {
                 if (btnAdmin) btnAdmin.style.display = "inline-block";
                 if (btnCustomer) btnCustomer.style.display = "none";
-
-                if (navBtnAdmin) navBtnAdmin.style.display = "inline-block";
-                if (navBtnCustomer) navBtnCustomer.style.display = "none";
             } else {
                 if (btnAdmin) btnAdmin.style.display = "none";
                 if (btnCustomer) btnCustomer.style.display = "inline-block";
-
-                if (navBtnAdmin) navBtnAdmin.style.display = "none";
-                if (navBtnCustomer) navBtnCustomer.style.display = "inline-block";
             }
 
             if (btnLogout) btnLogout.style.display = "inline-block";
-            if (navBtnLogout) navBtnLogout.style.display = "inline-block";
         }
 
+        // Decide which state to show
         if (!token) {
-            showLoggedOut();
+            showLoggedOutHero();
         } else {
             try {
-                // decode JWT payload to read role
                 const parts = token.split(".");
                 const payload = JSON.parse(atob(parts[1]));
                 const role = payload.role || "customer";
-
-                showLoggedIn(role);
+                showLoggedInHero(role);
             } catch (e) {
                 console.error("Problem decoding token", e);
                 localStorage.removeItem("token");
-                showLoggedOut();
+                localStorage.removeItem("role");
+                showLoggedOutHero();
             }
         }
 
-        // Admin button -> go to admin users page
+        // Admin hero button -> go to admin users page
         if (btnAdmin) {
             btnAdmin.addEventListener("click", (e) => {
                 e.preventDefault();
@@ -164,13 +140,17 @@
             });
         }
 
-        // Logout button
-        if (btnLogout || navBtnLogout) {
+        // Hero logout button (separate from nav logout)
+        if (btnLogout) {
             btnLogout.addEventListener("click", () => {
                 localStorage.removeItem("token");
-                showLoggedOut();
+                localStorage.removeItem("role");
+                window.location.href = "sign-in.html";
             });
         }
     </script>
+
+    <!-- Global nav + banner logout logic -->
+    <script src="auth.js"></script>
 </body>
 </html>

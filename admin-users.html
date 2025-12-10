@@ -246,10 +246,8 @@
         const refreshBtn = document.getElementById("refresh-btn");
         const backHomeBtn = document.getElementById("back-home-btn");
 
-        // Go back to homepage
-        backHomeBtn.addEventListener("click", () => {
-            window.location.href = "Homepage.html";
-        });
+        const token = localStorage.getItem("token");
+        const role = localStorage.getItem("role");
 
         // Helper: show message on top
         function setStatus(message, type = "ok") {
@@ -260,11 +258,11 @@
         }
 
         // Helper: build a small badge for the role
-        function roleBadge(role) {
+        function roleBadge(roleValue) {
             const span = document.createElement("span");
             span.classList.add("badge");
 
-            const cleanRole = (role || "").toLowerCase();
+            const cleanRole = (roleValue || "").toLowerCase();
 
             if (cleanRole === "admin") {
                 span.classList.add("badge-admin");
@@ -274,17 +272,14 @@
                 span.textContent = "Customer";
             } else {
                 span.classList.add("badge-other");
-                span.textContent = role || "Unknown";
+                span.textContent = roleValue || "Unknown";
             }
 
             return span;
         }
 
-        // Load users from API
+        // Load users from API (admin only)
         async function loadUsers() {
-            const token = localStorage.getItem("token");
-
-            // No token → not allowed here
             if (!token) {
                 setStatus(
                     "You are not logged in. Please sign in as admin first.",
@@ -403,7 +398,6 @@
             );
             if (!confirmDelete) return;
 
-            const token = localStorage.getItem("token");
             if (!token) {
                 setStatus("Missing token – please sign in again.", "error");
                 return;
@@ -439,13 +433,33 @@
             }
         }
 
-        // Refresh button
-        refreshBtn.addEventListener("click", () => {
-            loadUsers();
-        });
+        // Frontend admin-only guard
+        if (!token || role !== "admin") {
+            setStatus("Access denied. Admins only.", "error");
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="empty-row">
+                        This page is for admin users only. <a href="sign-in.html">Go to Sign In</a>
+                    </td>
+                </tr>
+            `;
+        } else {
+            // Go back to homepage
+            backHomeBtn.addEventListener("click", () => {
+                window.location.href = "Homepage.html";
+            });
 
-        // Initial load
-        loadUsers();
+            // Refresh button
+            refreshBtn.addEventListener("click", () => {
+                loadUsers();
+            });
+
+            // Initial load for valid admin
+            loadUsers();
+        }
     </script>
+
+    <!-- Global nav + logout logic -->
+    <script src="auth.js"></script>
 </body>
 </html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Pawmart – My Cart</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .cart-wrapper {
+            max-width: 900px;
+            margin: 40px auto 60px auto;
+            background: #ffffff;
+            padding: 30px 35px;
+            border-radius: 18px;
+            box-shadow: 0 8px 26px rgba(0,0,0,0.08);
+        }
+
+        .cart-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #283593;
+            margin-bottom: 10px;
+        }
+
+        .cart-subtitle {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .cart-empty {
+            font-size: 14px;
+            color: #777;
+            margin-top: 10px;
+        }
+
+        .cart-items {
+            margin-top: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .cart-item-meta {
+            font-size: 13px;
+            color: #555;
+        }
+
+        .cart-item-price {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2e7d32;
+        }
+
+        .cart-total {
+            margin-top: 20px;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .cart-btn-row {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .cart-btn {
+            background: #3d43e1;
+            color: #fff;
+            border: none;
+            border-radius: 999px;
+            padding: 9px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .cart-btn.secondary {
+            background: #fff;
+            color: #3d43e1;
+            border: 1px solid #3d43e1;
+        }
+
+        .cart-btn.secondary:hover {
+            background: #f0f2ff;
+        }
+
+        .cart-btn:hover {
+            background: #2f34b8;
+        }
+    </style>
+</head>
+
+<body class="background">
+    <!-- Banner -->
+    <header class="banner">
+        <img class="logo" src="images/pawmart.png" alt="Pawmart Logo" />
+        <h1 class="banner-title">Welcome to Pawmart!</h1>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div>
+            <a href="Homepage.html" id="nav-btn-homepage" class="nav-btn">Home</a>
+            <a href="profile.html" id="nav-btn-customer" class="nav-btn" style="display:none;">Profile</a>
+            <a href="admin-users.html" id="nav-btn-admin" class="nav-btn" style="display:none;">Admin Users</a>
+            <a href="products.html" id="nav-btn-products" class="nav-btn">Products</a>
+            <a href="about.html" class="nav-btn">About</a>
+            <a href="contact.html" class="nav-btn">Contact</a>
+            <a href="cart.html" class="nav-btn">Cart</a>
+            <a href="sign-in.html" id="nav-btn-signin" class="nav-btn">Sign in</a>
+            <a href="sign-up.html" id="nav-btn-signup" class="nav-btn">Sign Up</a>
+            <button id="nav-btn-logout" class="nav-btn" style="display:none;">Log Out</button>
+        </div>
+    </nav>
+
+    <main class="cart-wrapper">
+        <h2 class="cart-title">My Cart</h2>
+        <p class="cart-subtitle">
+            This cart page is part of the demo for the COMP229 project. It can be connected
+            to real product and order logic in future releases.
+        </p>
+
+        <div id="cart-content">
+            <!-- Populated by JS -->
+        </div>
+
+        <div class="cart-btn-row">
+            <button type="button" class="cart-btn secondary" id="continue-shopping">
+                Continue Shopping
+            </button>
+            <button type="button" class="cart-btn" id="checkout-btn">
+                Proceed to Checkout
+            </button>
+        </div>
+    </main>
+
+    <script>
+        const cartContentEl = document.getElementById("cart-content");
+        const continueBtn = document.getElementById("continue-shopping");
+        const checkoutBtn = document.getElementById("checkout-btn");
+
+        // Demo: read cart items from localStorage if present.
+        // Expected structure (future use):
+        // cartItems = [
+        //   { name: "Ultra-Plush 'Cloud' Bed", price: 79.99, qty: 1 },
+        //   ...
+        // ]
+        function renderCart() {
+            let cartItems = [];
+            try {
+                const raw = localStorage.getItem("cartItems");
+                if (raw) {
+                    cartItems = JSON.parse(raw);
+                }
+            } catch (e) {
+                console.error("Error reading cartItems from localStorage", e);
+            }
+
+            if (!Array.isArray(cartItems) || cartItems.length === 0) {
+                cartContentEl.innerHTML = `
+                    <p class="cart-empty">
+                        Your cart is currently empty. Browse the Products page to add items.
+                    </p>
+                `;
+                return;
+            }
+
+            let total = 0;
+            const itemsHtml = cartItems
+                .map((item) => {
+                    const qty = item.qty || 1;
+                    const price = Number(item.price) || 0;
+                    const lineTotal = qty * price;
+                    total += lineTotal;
+
+                    return `
+                        <div class="cart-item">
+                            <div>
+                                <div class="cart-item-name">${item.name || "Item"}</div>
+                                <div class="cart-item-meta">Qty: ${qty}</div>
+                            </div>
+                            <div class="cart-item-price">
+                                $${lineTotal.toFixed(2)}
+                            </div>
+                        </div>
+                    `;
+                })
+                .join("");
+
+            cartContentEl.innerHTML = `
+                <div class="cart-items">
+                    ${itemsHtml}
+                </div>
+                <div class="cart-total">
+                    Total: $${total.toFixed(2)}
+                </div>
+            `;
+        }
+
+        renderCart();
+
+        continueBtn.addEventListener("click", () => {
+            window.location.href = "products.html";
+        });
+
+        checkoutBtn.addEventListener("click", () => {
+            alert(
+                "Checkout flow is not implemented in this demo, " +
+                "but this is where it would begin."
+            );
+        });
+    </script>
+
+    <!-- Global nav + logout logic -->
+    <script src="auth.js"></script>
+</body>
+</html>

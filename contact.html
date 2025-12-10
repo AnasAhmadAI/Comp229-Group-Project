@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Pawmart – Contact</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .contact-wrapper {
+            max-width: 800px;
+            margin: 40px auto 60px auto;
+            background: #ffffff;
+            padding: 30px 35px;
+            border-radius: 18px;
+            box-shadow: 0 8px 26px rgba(0,0,0,0.08);
+        }
+
+        .contact-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #283593;
+            margin-bottom: 10px;
+        }
+
+        .contact-subtitle {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .contact-form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .contact-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #333;
+        }
+
+        .contact-input,
+        .contact-textarea {
+            width: 100%;
+            padding: 9px 11px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .contact-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-btn {
+            background: #3d43e1;
+            color: #fff;
+            border: none;
+            border-radius: 999px;
+            padding: 10px 22px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .contact-btn:hover {
+            background: #2f34b8;
+        }
+
+        .contact-message {
+            margin-top: 12px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body class="background">
+    <!-- Banner -->
+    <header class="banner">
+        <img class="logo" src="images/pawmart.png" alt="Pawmart Logo" />
+        <h1 class="banner-title">Welcome to Pawmart!</h1>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div>
+            <a href="Homepage.html" id="nav-btn-homepage" class="nav-btn">Home</a>
+            <a href="profile.html" id="nav-btn-customer" class="nav-btn" style="display:none;">Profile</a>
+            <a href="admin-users.html" id="nav-btn-admin" class="nav-btn" style="display:none;">Admin Users</a>
+            <a href="products.html" id="nav-btn-products" class="nav-btn">Products</a>
+            <a href="about.html" class="nav-btn">About</a>
+            <a href="contact.html" class="nav-btn">Contact</a>
+            <a href="cart.html" class="nav-btn">Cart</a>
+            <a href="sign-in.html" id="nav-btn-signin" class="nav-btn">Sign in</a>
+            <a href="sign-up.html" id="nav-btn-signup" class="nav-btn">Sign Up</a>
+            <button id="nav-btn-logout" class="nav-btn" style="display:none;">Log Out</button>
+        </div>
+    </nav>
+
+    <main class="contact-wrapper">
+        <h2 class="contact-title">Contact Pawmart</h2>
+        <p class="contact-subtitle">
+            This is a demo contact page for the COMP229 project. The form below does not
+            send real emails, but it simulates how a contact form would work in a live app.
+        </p>
+
+        <form id="contact-form">
+            <div class="contact-form-group">
+                <label class="contact-label" for="name">Your Name</label>
+                <input
+                    type="text"
+                    id="name"
+                    class="contact-input"
+                    placeholder="Enter your full name"
+                    required
+                />
+            </div>
+
+            <div class="contact-form-group">
+                <label class="contact-label" for="email">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    class="contact-input"
+                    placeholder="yourname@example.com"
+                    required
+                />
+            </div>
+
+            <div class="contact-form-group">
+                <label class="contact-label" for="message">Message</label>
+                <textarea
+                    id="message"
+                    class="contact-textarea"
+                    placeholder="How can we help you?"
+                    required
+                ></textarea>
+            </div>
+
+            <button type="submit" class="contact-btn">Send Message</button>
+            <p id="contact-status" class="contact-message"></p>
+        </form>
+    </main>
+
+    <script>
+        const contactForm = document.getElementById("contact-form");
+        const contactStatus = document.getElementById("contact-status");
+
+        contactForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            contactStatus.textContent =
+                "Thank you! Your message has been recorded for this demo project.";
+            contactStatus.style.color = "green";
+
+            // Optionally clear the form to simulate a successful send
+            contactForm.reset();
+        });
+    </script>
+
+    <!-- Global nav + logout logic -->
+    <script src="auth.js"></script>
+</body>
+</html>

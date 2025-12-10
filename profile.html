@@ -78,30 +78,56 @@
 
         <p id="error" class="error-msg"></p>
 
-        <p class="profile-field"><span class="profile-label">Email:</span> <span id="email"></span></p>
-        <p class="profile-field"><span class="profile-label">Role:</span> <span id="role"></span></p>
-        <p class="profile-field"><span class="profile-label">User ID:</span> <span id="userid"></span></p>
+        <p class="profile-field">
+            <span class="profile-label">Email:</span>
+            <span id="email"></span>
+        </p>
+        <p class="profile-field">
+            <span class="profile-label">Role:</span>
+            <span id="role"></span>
+        </p>
+        <p class="profile-field">
+            <span class="profile-label">User ID:</span>
+            <span id="userid"></span>
+        </p>
 
         <button class="profile-btn" id="back-home">Back to Home</button>
     </div>
 
     <script>
         const token = localStorage.getItem("token");
+        const storedEmail = localStorage.getItem("email"); // set this on login
+        const storedRole = localStorage.getItem("role");
         const errorEl = document.getElementById("error");
 
-
+        const emailEl = document.getElementById("email");
+        const roleEl = document.getElementById("role");
+        const userIdEl = document.getElementById("userid");
 
         if (!token) {
-            errorEl.textContent = "You are not logged in.";
+            errorEl.textContent = "You are not logged in. Redirecting to Sign In…";
+            setTimeout(() => {
+                window.location.href = "sign-in.html";
+            }, 1200);
         } else {
             try {
-                const payload = JSON.parse(atob(token.split(".")[1]));
+                const payload = JSON.parse(atob(token.split(".")[1])); // { id, role }
 
-                document.getElementById("email").textContent = payload.email || "Unknown";
-                document.getElementById("role").textContent = payload.role || "Unknown";
-                document.getElementById("userid").textContent = payload.id || "Unknown";
+                const email = storedEmail || payload.email || "Unknown";
+                const role = storedRole || payload.role || "Unknown";
+                const userId = payload.id || "Unknown";
+
+                emailEl.textContent = email;
+                roleEl.textContent = role;
+                userIdEl.textContent = userId;
             } catch (err) {
-                errorEl.textContent = "Unable to read profile information.";
+                console.error("Error decoding token:", err);
+                errorEl.textContent = "Unable to read profile information. Please sign in again.";
+                localStorage.removeItem("token");
+                localStorage.removeItem("role");
+                setTimeout(() => {
+                    window.location.href = "sign-in.html";
+                }, 1500);
             }
         }
 
@@ -110,5 +136,7 @@
         });
     </script>
 
+    <!-- Global nav + logout logic -->
+    <script src="auth.js"></script>
 </body>
 </html>
