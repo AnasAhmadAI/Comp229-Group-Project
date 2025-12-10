@@ -21,6 +21,9 @@
             <a href="profile.html" id="nav-btn-customer" class="nav-btn" style="display:none;">Profile</a>
             <a href="admin-users.html" id="nav-btn-admin" class="nav-btn" style="display:none;">Admin Users</a>
             <a href="products.html" id="nav-btn-products" class="nav-btn">Products</a>
+            <a href="about.html" class="nav-btn">About</a>
+            <a href="contact.html" class="nav-btn">Contact</a>
+            <a href="cart.html" class="nav-btn">Cart</a>
             <a href="sign-in.html" id="nav-btn-signin" class="nav-btn">Sign in</a>
             <a href="sign-up.html" id="nav-btn-signup" class="nav-btn">Sign Up</a>
             <button id="nav-btn-logout" class="nav-btn" style="display:none;">Log Out</button>
@@ -93,7 +96,7 @@
                     </p>
                     <div class="product-footer">
                         <span class="product-price">$79.99</span>
-                        <button class="btn-primary">Add to Wishlist</button>
+                        <button class="btn-primary">Add to Cart</button>
                     </div>
                 </article>
 
@@ -112,7 +115,7 @@
                     </p>
                     <div class="product-footer">
                         <span class="product-price">$119.00</span>
-                        <button class="btn-primary">View Details</button>
+                        <button class="btn-primary">Add to Cart</button>
                     </div>
                 </article>
 
@@ -149,7 +152,7 @@
                     </p>
                     <div class="product-footer">
                         <span class="product-price">$149.99</span>
-                        <button class="btn-primary">Add to Wishlist</button>
+                        <button class="btn-primary">Add to Cart</button>
                     </div>
                 </article>
 
@@ -167,7 +170,7 @@
                     </p>
                     <div class="product-footer">
                         <span class="product-price">$39.00 / month</span>
-                        <button class="btn-primary">Start Plan</button>
+                        <button class="btn-primary">Add to Cart</button>
                     </div>
                 </article>
 
@@ -185,7 +188,7 @@
                     </p>
                     <div class="product-footer">
                         <span class="product-price">$42.75</span>
-                        <button class="btn-primary">View Details</button>
+                        <button class="btn-primary">Add to Cart</button>
                     </div>
                 </article>
 
@@ -203,6 +206,49 @@
         </section>
 
     </main>
+
+    <!-- Simple cart logic: add items from Products to localStorage.cartItems -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const buttons = document.querySelectorAll(".product-card .btn-primary");
+
+            buttons.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const card = btn.closest(".product-card");
+                    if (!card) return;
+
+                    const nameEl = card.querySelector("h4");
+                    const priceEl = card.querySelector(".product-price");
+
+                    const name = nameEl ? nameEl.textContent.trim() : "Item";
+                    const priceText = priceEl ? priceEl.textContent.replace(/[^0-9.]/g, "") : "0";
+                    const price = parseFloat(priceText) || 0;
+
+                    let cartItems = [];
+                    try {
+                        const raw = localStorage.getItem("cartItems");
+                        if (raw) {
+                            cartItems = JSON.parse(raw);
+                        }
+                    } catch (e) {
+                        console.error("Error parsing cartItems from localStorage", e);
+                        cartItems = [];
+                    }
+
+                    const existing = cartItems.find((item) => item.name === name);
+                    if (existing) {
+                        existing.qty = (existing.qty || 1) + 1;
+                    } else {
+                        cartItems.push({ name, price, qty: 1 });
+                    }
+
+                    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+                    alert(`${name} has been added to your cart.`);
+                });
+            });
+        });
+    </script>
 
     <!-- Global nav + logout logic -->
     <script src="auth.js"></script>
